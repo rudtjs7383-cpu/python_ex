@@ -161,74 +161,111 @@
 #  When we disco.mp3  How You Like That.mp3 눈누난나.mp3 그 여름을틀어줘.mp3 가 있다
 # 아리랑~.mp3 를 추가하고 제거 했다는것을 출력할수있는 코드를 만들어보자
 
-import random
+# import random
+# 
+# class MP3Player:
+    # def __init__(self):
+        # self.Playlist = [
+            # 'Dynamite.mp3',
+            # '다시여기바닷가.mp3',
+            # '마리아(maria).mp3',
+            # 'When we disco.mp3',
+            # 'How You Like That.mp3',
+            # '눈누난나.mp3',
+            # '그 여름을틀어줘.mp3'
+        # ]
+# 
+    # 
+    # def show_playlist(self):
+        # print("\n=== 현재 플레이리스트 ===")
+        # for i, song in enumerate(self.Playlist, 1):
+            # print(f"{i}. {song}")
+        # print("=======================\n")
+# 
+    # def addSong(self, song_name):
+        # self.Playlist.append(song_name)
+        # print(f' 곡을 추가합니다: {song_name}가 추가되었습니다.')
+# 
+    # def removeSong(self, song_name):
+        # if song_name in self.Playlist:
+            # self.Playlist.remove(song_name)
+            # print(f' 곡을 제거합니다: {song_name}이 제거되었습니다.')
+# 
+    # def play_normalMode(self):
+        # print(f'\n 순차적 재생모드입니다.')
+        # for song in self.Playlist:
+            # print(f' 현재 재생중 : {song}')
+        # print(' 모든 곡의 재생이 완료되었습니다.\n')
+# 
+    # def play_shuffleMode(self):
+        # print(f'\n 랜덤재생 모드입니다.')
+        # 
+        # shuffleList = self.Playlist.copy()
+        # random.shuffle(shuffleList)
+# 
+        # for song in shuffleList:
+            # print(f' 현재 재생중 : {song}')
+        # print(' 모든 곡의 재생이 완료되었습니다.\n')
+# 
+# 
+# 
+# if __name__ == "__main__":
+    # my_mp3 = MP3Player()
+# 
+    # 
+    # my_mp3.show_playlist()
+# 
+    # 
+    # my_mp3.addSong('아리랑~.mp3')
+    # my_mp3.show_playlist()
+# 
+#    
+    # my_mp3.play_normalMode()   # 일반 재생
+    # my_mp3.play_shuffleMode()  # 셔플 재생
+# 
+#    
+    # my_mp3.removeSong("아리랑~.mp3")
+    # my_mp3.show_playlist()
 
-class MP3Player:
-    def __init__(self):
-        self.Playlist = [
-            'Dynamite.mp3',
-            '다시여기바닷가.mp3',
-            '마리아(maria).mp3',
-            'When we disco.mp3',
-            'How You Like That.mp3',
-            '눈누난나.mp3',
-            '그 여름을틀어줘.mp3'
-        ]
+# 가로가 32m,세로가 48m인 직사각형의 밭을 똑같은 크기의 정사각형으로 분할하여 나누어 주려고 한다.
+# 정사각형의 크기를 가장 크게 했을 때 정사각형의 넓이를 구하는 모듈을 만드세요.
+
+#정사각형 한 변의 길이 : 16m
+#정사각형 한개 면적 256m(제곱)
+#정사각형 개수 6.0개
+
+import math
+
+def calculate_max_square(width, height):
 
     
-    def show_playlist(self):
-        print("\n=== 현재 플레이리스트 ===")
-        for i, song in enumerate(self.Playlist, 1):
-            print(f"{i}. {song}")
-        print("=======================\n")
-
-    def addSong(self, song_name):
-        self.Playlist.append(song_name)
-        print(f'🎵 곡을 추가합니다: {song_name}가 추가되었습니다.')
-
-    def removeSong(self, song_name):
-        if song_name in self.Playlist:
-            self.Playlist.remove(song_name)
-            print(f'❌ 곡을 제거합니다: {song_name}이 제거되었습니다.')
-
-    def play_normalMode(self):
-        print(f'\n 순차적 재생모드입니다.')
-        for song in self.Playlist:
-            print(f' 현재 재생중 : {song}')
-        print(' 모든 곡의 재생이 완료되었습니다.\n')
-
-    def play_shuffleMode(self):
-        print(f'\n 랜덤재생 모드입니다.')
-        
-        shuffleList = self.Playlist.copy()
-        random.shuffle(shuffleList)
-
-        for song in shuffleList:
-            print(f' 현재 재생중 : {song}')
-        print(' 모든 곡의 재생이 완료되었습니다.\n')
-
+    
+    side_length = math.gcd(width, height)
+    
+    
+    area = side_length ** 2
+    
+   
+   
+    count = (width // side_length) * (height // side_length)
+    
+    return {
+        "side_length": side_length,
+        "area": area,
+        "count": count
+    }
 
 
 if __name__ == "__main__":
-    my_mp3 = MP3Player()
-
-    
-    my_mp3.show_playlist()
-
-    
-    my_mp3.addSong('아리랑~.mp3')
-    my_mp3.show_playlist()
-
    
-    my_mp3.play_normalMode()   # 일반 재생
-    my_mp3.play_shuffleMode()  # 셔플 재생
-
-   
-    my_mp3.removeSong("아리랑~.mp3")
-    my_mp3.show_playlist()
-
-
-
+    width = 32
+    height = 48
+    
+    result = calculate_max_square(width, height)
+    
+    print(f"# 정사각형 한 변의 길이 : {result['side_length']}m")
+    print(f"# 정사각형 한개 면적 : {result['area']}m²")
+    print(f"# 정사각형 개수 : {result['count']}개")
 
 
 

@@ -15,7 +15,10 @@ while dFlag:
      f.write(f'[{getDay()}][{getTime()}]{todayDiary}\n')
    
    elif selectedMenuNum == config.DIARY_READ:
-    pass
+    with open('c:\LKS\python_ex/diary.txt','r') as f:
+     str = f.read()
+     print(str)
 
    elif selectedMenuNum == config.SYSTEM_SHUTDOWN:
-    pass 
+     print('Bye~')
+     dFlag = False
