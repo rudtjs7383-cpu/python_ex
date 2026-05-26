@@ -1,0 +1,9 @@
+DIARY_WRITE = 1
+DIARY_READ = 2
+SYSTEM_SHUTDOWN = 99
+
+
+
+
+
+

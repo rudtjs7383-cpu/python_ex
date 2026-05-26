@@ -24,13 +24,39 @@
 # 
 # file.close()
 # 
-file = open(r'C:\LKS\python_ex\test.txt','a')
-file.write('\n hello~')
-file.close()
-
-file = open(r'C:\LKS\python_ex\test.txt','a')
-file.write('\n hi~')
-file.close()
-
-with open (r'C:\LKS\python_ex\test.txt','a') as file:
-    file.write('\n hello~')
+# file = open(r'C:\LKS\python_ex\test.txt','a')
+# file.write('\n hello~')
+# file.close()
+# 
+# file = open(r'C:\LKS\python_ex\test.txt','a')
+# file.write('\n hi~')
+# file.close()
+# 
+# with open (r'C:\LKS\python_ex\test.txt','a') as file:
+    # file.write('\n hello~')
+# print(10 + 20)
+# 
+# try:
+    # print(10 / 1)
+    # 
+    # 
+# except Exception as e:
+    # print(f'e: {e}')
+# else:
+    # print('에러가 발생하지않으면 실행되는 코드')
+# 
+# finally :
+    # print('에러가 발생하거나 안하거나 실행되는 코드')
+#  
+# 
+# 
+    # print(10 - 20)
+    # print(10 * 20)
+    # 
+    # 
+# 
+#예외처리 기본 문법
+# '''
+# try ~ (except) Exception
+# 
+# '''
