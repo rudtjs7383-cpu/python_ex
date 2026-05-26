@@ -1,0 +1,8 @@
+<<<<<<< HEAD
+task1 complete at home
+task2 complete at arcademy
+task3 complete at home
+=======
+task01 complete at home
+task02 complete at acardemy
+>>>>>>> 5acb539e03e687ca3f0b1fb89630a04513bab809
