@@ -234,45 +234,102 @@
 #정사각형 한개 면적 256m(제곱)
 #정사각형 개수 6.0개
 
-import math
+# import math
 
-def calculate_max_square(width, height):
+# def calculate_max_square(width, height):
 
     
     
-    side_length = math.gcd(width, height)
+#     side_length = math.gcd(width, height)
     
     
-    area = side_length ** 2
+#     area = side_length ** 2
     
    
    
-    count = (width // side_length) * (height // side_length)
+#     count = (width // side_length) * (height // side_length)
     
-    return {
-        "side_length": side_length,
-        "area": area,
-        "count": count
-    }
+#     return {
+#         "side_length": side_length,
+#         "area": area,
+#         "count": count
+#     }
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
    
-    width = 32
-    height = 48
+#     width = 32
+#     height = 48
     
-    result = calculate_max_square(width, height)
+#     result = calculate_max_square(width, height)
     
-    print(f"# 정사각형 한 변의 길이 : {result['side_length']}m")
-    print(f"# 정사각형 한개 면적 : {result['area']}m²")
-    print(f"# 정사각형 개수 : {result['count']}개")
+#     print(f"# 정사각형 한 변의 길이 : {result['side_length']}m")
+#     print(f"# 정사각형 한개 면적 : {result['area']}m²")
+#     print(f"# 정사각형 개수 : {result['count']}개")
+
+
+# class Menu:                                    #클래스를 선언하여 메뉴를 생성
+#      def __init__(self, name, price):
+#           self.name = name
+#           self.price = price
+
+# class Kiosk:                                  #클래스를 선언하여 키오스크를생성,품목은 사용자 스스로가 정하게 하여 메뉴와 가격을 책정
+#      def __init__(self):
+#           self.menu_list = [
+#                Menu('아메리카노', 3900),
+#                Menu('카페라떼', 4500),
+#                Menu('딸기라떼', 4900),
+#                Menu('스무디', 4500),
+#                Menu('콜드브루', 4000)
+#           ]    
+#           self.order_list = []
+
+#      def show_menu(self):                      #메뉴를 불러옴
+#           print('\n --MENU-- ')
+#           for idx, menu in enumerate(self.menu_list, 1):
+#                print(f'{idx}. {menu.name} : {menu.price}원')
+
+#      def add_order(self, menu_num):           #사용자가 메뉴를 선택하였을때 나타나는 메세지를 출력
+#           idx = menu_num - 1 
+#           if 0 <= idx < len(self.menu_list):
+#                selected_menu = self.menu_list[idx]
+#                self.order_list.append(selected_menu)
+#                print(f' {selected_menu.name}가 구매목록에 추가되었습니다.')
+#           else:
+#                print('잘못 입력하셨습니다 다시 확인해주세요.')
+
+#      def calculate_total(self):                   #사용자가 만약 주문을하지않았을 경우와 사용자가 고르고 난 후 영수증으로 내역을 불러옴
+#           print('\n ===== 영수증 =====')
+#           if not self.order_list:
+#                print("주문 내역이 없습니다.")
+#                print('==================')
+#                return
+
+#           total_price = 0                           #사용자가 구매한 목록의 키와 밸류를 입력함
+#           for menu in self.order_list:
+#                print(f'- {menu.name} : {menu.price}원')
+#                total_price += menu.price
+               
+#           print('------------------')
+#           print(f' 총 결제 금액: {total_price}원')    #사용자가 구매한 목록의 총 합계를 구함
+#           print('==================')
 
 
 
+# kiosk = Kiosk()                                  #앞서 정의한 클래스를 호출
+
+# while True:
+#      kiosk.show_menu()                              #클래스를 호출하였으니 사용자에게 입력값을 받아야함
+#      user_input = int(input("\n주문할 메뉴 번호를 입력하세요 (종료하려면 0 입력): "))
+     
+#      if user_input == 0:                            #입력값에 종료를 추가하였으므로 메세지를 출력하게함
+#           print("\n주문을 종료하고 결제를 진행합니다.")
+#           break
+          
+#      kiosk.add_order(user_input)                       
 
 
-
-
+# kiosk.calculate_total()                    # 총 합계값을 호출
 
 
 

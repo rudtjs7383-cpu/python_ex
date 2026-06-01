@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>네이버 뉴스 검색기</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <h1 class="text-center mb-4">📰 네이버 뉴스 실시간 검색</h1>
+        
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <form method="POST" class="d-flex gap-2">
+                    <input type="text" name="search_word" class="form-control form-control-lg" 
+                           placeholder="검색할 뉴스 키워드를 입력하세요..." value="{{ search_word }}" required>
+                    <button type="submit" class="btn btn-primary btn-lg px-4">검색</button>
+                </form>
+            </div>
+        </div>
+
+        {% if search_word %}
+            <div class="mb-3">
+                <h4>'<strong>{{ search_word }}</strong>' 검색 결과 <span class="badge bg-secondary">{{ total_cnt }}건</span></h4>
+            </div>
+
+            {% if results %}
+                <div class="row g-3">
+                    {% for item in results %}
+                        <div class="col-12">
+                            <div class="card shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title"><a href="{{ item.link }}" target="_blank" class="text-decoration-none text-dark">{{ item.title | safe }}</a></h5>
+                                    <p class="card-text text-muted small">{{ item.description | safe }}</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <span class="text-secondary small">📅 {{ item.pDate }}</span>
+                                        {% if item.org_link %}
+                                            <a href="{{ item.org_link }}" target="_blank" class="btn btn-sm btn-outline-secondary">언론사 원문</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="text-center py-5">
+                    <p class="text-muted fs-5">검색 결과가 없습니다.</p>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+</body>
+</html>
