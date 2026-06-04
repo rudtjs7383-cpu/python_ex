@@ -1,1 +1,52 @@
-{}
+{
+    "gildong": {
+        "70fea818-2bf1-4b8c-bb4f-9310882d2b69": {
+            "balance": 4500,
+            "histories": [
+                {
+                    "dAmount": 3000,
+                    "dHistory": "--",
+                    "dRegDate": "2026-06-02 10:12:16",
+                    "dModDate": "2026-06-02 10:12:16"
+                },
+                {
+                    "dAmount": 500,
+                    "dHistory": "용돈",
+                    "dRegDate": "2026-06-02 10:12:08",
+                    "dModDate": "2026-06-02 10:12:08"
+                },
+                {
+                    "dAmount": 1000,
+                    "dHistory": "용돈",
+                    "dRegDate": "2026-06-02 10:10:33",
+                    "dModDate": "2026-06-02 10:10:33"
+                }
+            ]
+        },
+        "41e1429a-6fbe-4876-9489-c8647e2e6511": {
+            "balance": 2500,
+            "histories": [
+                {
+                    "dAmount": 2000,
+                    "dHistory": "X",
+                    "dRegDate": "2026-06-02 10:11:50",
+                    "dModDate": "2026-06-02 10:11:50"
+                },
+                {
+                    "dAmount": 500,
+                    "dHistory": "용돈",
+                    "dRegDate": "2026-06-02 10:11:01",
+                    "dModDate": "2026-06-02 10:11:01"
+                }
+            ]
+        },
+        "d39f12ca-cc42-437b-a13d-973709139cde": {
+            "balance": 0,
+            "histories": []
+        },
+        "4b7a1e3c-d4c2-41e2-a2a5-fed381a103e4": {
+            "balance": 0,
+            "histories": []
+        }
+    }
+}

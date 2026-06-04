@@ -1,34 +1,26 @@
 {
-    "gildong": {
-        "mId": "gildong",
-        "mPw": "1234",
-        "mMail": "gildong@gmail.com",
-        "mPhone": "010-1234-5678",
-        "mRegDate": "2026-06-01 12:49:14",
-        "mModDate": "2026-06-01 12:49:14"
-    },
-    "chanho": {
-        "mId": "chanho",
-        "mPw": "0000",
-        "mMail": "chanho@naver.com",
-        "mPhone": "010-1111-2222",
-        "mRegDate": "2026-06-01 12:49:37",
-        "mModDate": "2026-06-01 12:49:37"
-    },
     "saeri": {
         "mId": "saeri",
         "mPw": "1234",
         "mMail": "saeri@gmail.com",
         "mPhone": "010-5555-6666",
-        "mRegDate": "2026-06-01 14:10:14",
-        "mModDate": "2026-06-01 14:10:14"
+        "mRegDate": "2026-06-01 14:09:45",
+        "mModDate": "2026-06-01 14:09:45"
     },
-    "jjajang": {
-        "mId": "jjajang",
+    "jjajjang": {
+        "mId": "jjajjang",
         "mPw": "1234",
         "mMail": "jjajjang@naver.com",
         "mPhone": "010-7777-8888",
-        "mRegDate": "2026-06-01 14:26:57",
-        "mModDate": "2026-06-01 14:26:57"
+        "mRegDate": "2026-06-01 14:25:22",
+        "mModDate": "2026-06-01 14:25:22"
+    },
+    "gildong": {
+        "mId": "gildong",
+        "mPw": "1234",
+        "mMail": "gildong@gmail.com",
+        "mPhone": "010-1234-5678",
+        "mRegDate": "2026-06-01 15:33:40",
+        "mModDate": "2026-06-01 15:33:40"
     }
 }

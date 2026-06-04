@@ -1,9 +1,10 @@
-import bank as bank_config
+import config as root_config
+from bank import config as bank_config
 import session
 import os
 import json
 import uuid
-
+from util import util_time
 
 class BankService:
     def __init__(self):
@@ -13,93 +14,172 @@ class BankService:
     def init_database(self):
         # 현재 파일 위치
         BASE_PATH = os.path.dirname(os.path.abspath(__file__))
-        print(f'BASE_PATH:{BASE_PATH}')
+        print(f'BASE_PATH: {BASE_PATH}')
 
         # 프로젝트 루트 경로
         ROOT_DIR = os.path.dirname(BASE_PATH)
-        print(f'ROOT_DIR:{ROOT_DIR}')
+        print(f'ROOT_DIR: {ROOT_DIR}')
 
+        # db/accounts.json
         self.dbFile = os.path.join(ROOT_DIR, 'db', 'accounts.json')
+        print(f'self.dbFile: {self.dbFile}')
+        # C:\kmh\python\python_ex\myDashboradPjt\db\accounts.json
 
+        # 파일 존재 여부 확인
         if not os.path.exists(self.dbFile):
             self.save_accounts(self.accounts)
         else:
             self.accounts = self.load_accounts()
 
-    # json 에 저장
-    def save_accounts(self, accounts):
+    # JSON 파일 저장
+    def save_accounts(self, accounts):   # {}
         with open(self.dbFile, 'w', encoding='utf-8') as f:
             json.dump(accounts, f, ensure_ascii=False, indent=4)
 
     def load_accounts(self):
         with open(self.dbFile, 'r', encoding='utf-8') as f:
             return json.load(f)
-            
+        
     def isMyAccount(self):
-        allAccount = self.load_accounts()
-        current_user = session.getSignInedMemberId()
-        # 로그인한 회원의 계좌 딕셔너리가 존재하고, 그 내부에 계좌가 1개 이상 있을 때 True
-        if current_user in allAccount and len(allAccount[current_user]) > 0:
+        allAcccounts = self.load_accounts()
+        if session.getSignInedMemberId() in allAcccounts:
             return True
+        
         return False
 
+
     def run(self):
+
         if session.getSignInedMemberId() == '':
-            print('로그인 후 이용 부탁드립니다.')
+            print('Please SIGN-IN!!')
             return
 
         flag = True
         while flag:
-            current_user = session.getSignInedMemberId()
-            
+
             if self.isMyAccount():
-                try:
-                    menNum = int(input('\n1.계좌목록   2.신규개설   3.입금   4.출금   0.메인메뉴로: '))
-                except ValueError:
-                    print('숫자를 입력해주세요.')
-                    continue
+                menuNum = int(input('1.ACCOUNT-LIST    2.NEW-ACCOUNT    3.DEPOSIT    4.WITHDRAWAL    99.SERVICE-OUT '))
             else:
-                print('\n계좌가 없습니다. 신규 개설 후 이용 부탁드립니다.')
-                try:
-                    menNum = int(input('2.신규개설   0.메인메뉴로: '))
-                except ValueError:
-                    print('숫자를 입력해주세요.')
-                    continue
-
-            if menNum == bank_config.ACCOUNT_LIST:
-                pass
-
-            elif menNum == bank_config.NEW_ACCOUNT:
+                print('No account yet!!')
+                menuNum = int(input('2.NEW-ACCOUNT    99.SERVICE-OUT '))
+            
+            if menuNum == bank_config.ACCOUNT_LIST:
                 self.accounts = self.load_accounts()
-                
-                # 대소문자 오타 수정 (getsignInedMemberId -> getSignInedMemberId)
-                if current_user not in self.accounts:
-                    self.accounts[current_user] = {}
+                myAccounts = self.accounts[session.getSignInedMemberId()]
 
-                myAccounts = self.accounts[current_user]
-                
-                # 💡 [잔액 기능 반영] 신규 계좌 개설 시 balance: 0 필드 추가
-                new_account_number = str(uuid.uuid4())
-                myAccounts[new_account_number] = {
-                    "balance": 0
+                for idx, myAccount in enumerate(myAccounts.keys()):
+                    print('=' * 80)
+                    print(f"[{idx + 1}], {myAccount}: {myAccounts[myAccount]['balance']}")
+                    print('-' * 80)
+                    print('날짜/시간 \t\t 내역 \t\t\t 입금 \t\t 출금')
+                    for history in myAccounts[myAccount]['histories']:
+                        if 'dAmount' in history:
+                            print(f'{history["dRegDate"]} \t {history["dHistory"]} \t\t\t {history["dAmount"]}')
+                        else:
+                            print(f'{history["wRegDate"]} \t {history["wHistory"]} \t\t\t\t\t {history["wAmount"]}')
+                    print()
+
+            elif menuNum == bank_config.NEW_ACCOUNT:
+                self.accounts = self.load_accounts()
+                if session.getSignInedMemberId() not in self.accounts:
+                    self.accounts[session.getSignInedMemberId()] = {}
+
+                myAccounts = self.accounts[session.getSignInedMemberId()]
+                myAccounts[str(uuid.uuid4())] = {
+                    'balance': 0,
+                    'histories': []
                 }
-                
-                # 변경된 계좌 정보를 파일에 즉시 반영
+
                 self.save_accounts(self.accounts)
-                print(f'\n계좌가 신규 개설되었습니다!')
-                print(f'개설된 계좌번호: {new_account_number}')
+                print('NEW-ACCOUNT SUCCESS!!')
 
-            elif menNum == bank_config.DEPOSIT:
-                pass
+                if root_config.DEV_MOD:
+                    print(f'self.load_accounts(): {self.load_accounts()}')
 
-            elif menNum == bank_config.WITHDRAWAL:
-                pass
+            elif menuNum == bank_config.DEPOSIT:
+                self.accounts = self.load_accounts()
+                myAccounts = self.accounts[session.getSignInedMemberId()]
 
-            elif menNum == 0 or menNum == bank_config.SERVICE_OUT:
-                print('은행 서비스를 종료합니다.')
+                print('\nMy Accounts-----------------------------------')
+                for idx, account in enumerate(myAccounts.keys()):
+                    print(f'[{idx+1}]: {account}')
+                print('----------------------------------------------\n')
+
+                depositAccountNumber = ''
+                while True:
+                    depositAccountNumber = input('Enter deposit account number: ')
+                    if depositAccountNumber not in myAccounts:
+                        print('The account was not found!!')
+                        print('\nMy Accounts-----------------------------------')
+                        for idx, account in enumerate(myAccounts.keys()):
+                            print(f'[{idx+1}]: {account}')
+                        print('----------------------------------------------\n')
+                    else:
+                        break
+
+                depositAmount = int(input('Enter deposit amount: '))
+                depositHistory = input('Enter doposit history: ')
+                deposit = {
+                    'dAmount': depositAmount,
+                    'dHistory': depositHistory,
+                    'dRegDate': util_time.getCurrentDateTime(),
+                    'dModDate': util_time.getCurrentDateTime()
+                }
+
+                myAccounts[depositAccountNumber]['balance'] += depositAmount
+                myAccounts[depositAccountNumber]['histories'].insert(0, deposit)
+
+                self.save_accounts(self.accounts)
+                print('DEPOSIT SUCCESS!!')
+
+                if root_config.DEV_MOD:
+                    print(f'self.load_accounts(): {self.load_accounts()}')
+
+            elif menuNum == bank_config.WITHDRAWAL:
+                self.accounts = self.load_accounts()
+                myAccounts = self.accounts[session.getSignInedMemberId()]
+
+                print('\nMy Accounts-----------------------------------')
+                for idx, account in enumerate(myAccounts.keys()):
+                    print(f'[{idx+1}]: {account}')
+                print('----------------------------------------------\n')
+
+                withdrawalAccountNumber = ''
+                while True:
+                    withdrawalAccountNumber = input('Enter withdrawal account number: ')
+                    if withdrawalAccountNumber not in myAccounts:
+                        print('The account was not found!!')
+                        print('\nMy Accounts-----------------------------------')
+                        for idx, account in enumerate(myAccounts.keys()):
+                            print(f'[{idx+1}]: {account}')
+                        print('----------------------------------------------\n')
+                    else:
+                        break
+
+                withdrawalAmount = int(input('Enter withdrawal amount: '))
+                withdrawalHistory = input('Enter withdrawal history: ')
+                withdrawal = {
+                    'wAmount': withdrawalAmount,
+                    'wHistory': withdrawalHistory,
+                    'wRegDate': util_time.getCurrentDateTime(),
+                    'wModDate': util_time.getCurrentDateTime()
+                }
+
+                if withdrawalAmount > myAccounts[withdrawalAccountNumber]['balance']:
+                    print('Error! Check Balance!!')
+                else:
+                    myAccounts[withdrawalAccountNumber]['balance'] -= withdrawalAmount
+                    myAccounts[withdrawalAccountNumber]['histories'].insert(0, withdrawal)
+                    
+                    self.save_accounts(self.accounts)
+                    print('WITHDRAWAL SUCCESS!!')
+
+                if root_config.DEV_MOD:
+                    print(f'self.load_accounts(): {self.load_accounts()}')
+
+            elif menuNum == bank_config.SERVICE_OUT:
                 flag = False
 
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     bankService = BankService()
     bankService.run()

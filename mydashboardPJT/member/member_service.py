@@ -1,7 +1,7 @@
 import os
 import json
-import member.member_config as root_config
-import member.member_config as member_config  # 💡 안전하게 패키지 경로 명시
+import member.config as root_config
+import member.config as config  # 💡 안전하게 패키지 경로 명시
 import session
 from util import util_time  
 
@@ -129,17 +129,17 @@ class MemberService:
                     print('숫자를 입력해주세요.')
                     continue
 
-            if menuNum == member_config.SIGN_UP:
+            if menuNum == config.SIGN_UP:
                 self.sign_up()
-            elif menuNum == member_config.SIGN_IN:
+            elif menuNum == config.SIGN_IN:
                 self.sign_in()
-            elif menuNum == member_config.SIGN_OUT:
+            elif menuNum == config.SIGN_OUT:
                 self.sign_out()
-            elif menuNum == member_config.MODIFY:
+            elif menuNum == config.MODIFY:
                 self.modify()
-            elif menuNum == member_config.DELETE:
+            elif menuNum == config.DELETE:
                 self.delete()
-            elif menuNum == member_config.SERVICE_OUT:
+            elif menuNum == config.SERVICE_OUT:
                 flag = False
                 print('MEMBER SERVICE CLOSED.')
 
